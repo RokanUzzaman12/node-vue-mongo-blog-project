@@ -15,6 +15,10 @@ const postSchema = Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'User'
     },
+    postImage:{
+        type:String,
+        default:''
+    },
     created:{
         type:Date,
         default: Date.now
