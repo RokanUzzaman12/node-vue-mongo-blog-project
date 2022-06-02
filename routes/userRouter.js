@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const usersSchema = require('../models/userModel')
-const {createUser,fatchAlluser,updateUser,singleUser,deleteUser} = require('../controllers/userController');
+const {createUser,fatchAlluser,updateUser,singleUser,loginUser,deleteUser,verifyUser} = require('../controllers/userController');
 const {check} = require('express-validator')
+const checkLogin = require('../middleware/checkLogin')
 
 const upload = require('../middleware/upload')
 
@@ -20,7 +21,7 @@ router.post('/users',upload.single('profilePicture'),[
     
 ],createUser);
 
-router.get('/users',fatchAlluser);
+router.get('/users',checkLogin,fatchAlluser);
 
 router.put('/users/:id',upload.single('profilePicture'),[
     check('userName',"User Name Should not be Empty").not().isEmpty(),
@@ -28,6 +29,10 @@ router.put('/users/:id',upload.single('profilePicture'),[
 ],updateUser)
 
 router.get('/users/:id',singleUser)
+// router.get('/user',setUserInfo)
+router.post('/users/login',loginUser)
+
+router.get('/user-verify',verifyUser)
 
 router.delete('/users/:id',deleteUser)
 

@@ -1,6 +1,17 @@
 <script>
+import axios from "axios";
 export default {
   name: "NavbarLayout",
+  methods: {
+    logout() {
+      localStorage.clear();
+      axios.defaults.headers.common["Authorization"] = null;
+
+      this.$router.push({ name: "Login" }).then(() => {
+        location.reload();
+      });
+    },
+  },
 };
 </script>
 
@@ -179,6 +190,19 @@ export default {
           <a class="nav-link" data-widget="fullscreen" href="#" role="button">
             <i class="fas fa-expand-arrows-alt"></i>
           </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="dropdown" href="#" role="button">
+            <i class="fas fa-user"></i>
+          </a>
+
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item"> Log In </a>
+            <div class="dropdown-divider"></div>
+            <a @click="logout()" href="#" class="dropdown-item"> Log Out </a>
+            <div class="dropdown-divider"></div>
+          </div>
         </li>
         <li class="nav-item">
           <a

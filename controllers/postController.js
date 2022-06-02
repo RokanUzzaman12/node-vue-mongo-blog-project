@@ -10,9 +10,12 @@ exports.createPost = asyncHandler(async(req,res,next)=>{
         }
     
         const {title,content,author}=req.body
+        console.log(req.body)
         if(req.file){
             console.log(req.file)
              postImage = req.file.filename
+        }else{
+            postImage = " "
         }
         const addPost = new postModel({
             title,

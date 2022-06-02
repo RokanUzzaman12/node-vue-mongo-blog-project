@@ -1,34 +1,56 @@
 <script>
 import { VueEditor } from "vue3-editor";
+import { mapActions, mapState } from "vuex";
+import NavbarLayout from "../layout/navbar";
+import SidebarLayout from "../layout/sidebar";
+import FooterLayout from "../layout/footer";
 export default {
   name: "createPost",
-  components: { VueEditor },
+  components: { VueEditor, NavbarLayout, SidebarLayout, FooterLayout },
 
   data() {
     return {
-      content: "",
+      userInfo: JSON.parse(localStorage.getItem("userInfo")),
+
       post: {
+        author: "",
         title: "",
         content: "",
-        image: "",
+        postImage: "",
       },
     };
   },
+  computed: {
+    ...mapState("postModule", ["name"]),
+  },
   methods: {
+    ...mapActions("postModule", ["createPost"]),
     onSubmit() {
-      console.log(this.post.content);
+      this.post.author = this.userInfo._id;
+      const formData = new FormData();
+      formData.append("postImage", this.post.postImage);
+      formData.append("title", this.post.title);
+      console.log(this.post);
+      this.createPost(formData);
+    },
+
+    onFileChange(event) {
+      this.post.postImage = event.target.files[0];
     },
   },
 };
 </script>
 <template>
+  <NavbarLayout />
+
+  <SidebarLayout />
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Create Post</h1>
+            <h1 class="m-0">Create Post {{ this.name }}</h1>
           </div>
           <!-- /.col -->
           <div class="col-sm-6">
@@ -58,6 +80,7 @@ export default {
                     <input
                       v-model="post.title"
                       type="text"
+                      name="title"
                       class="form-control"
                       id="exampleInputEmail1"
                       aria-describedby="emailHelp"
@@ -73,7 +96,8 @@ export default {
                   <div class="form-group">
                     <label for="exampleInputEmail1">Thumbnail Image</label>
                     <input
-                      name="image"
+                      @change="onFileChange"
+                      ref="imagefile"
                       type="file"
                       class="form-control-file"
                       id="exampleInputEmail1"
@@ -81,12 +105,10 @@ export default {
                       placeholder="Post Title"
                     />
                   </div>
+                  <button type="submit" class="btn btn-primary float-right">
+                    Submit
+                  </button>
                 </form>
-              </div>
-              <div class="card-footer">
-                <button type="submit" class="btn btn-primary float-right">
-                  Submit
-                </button>
               </div>
             </div>
           </div>
@@ -96,6 +118,7 @@ export default {
     </section>
     <!-- /.content -->
   </div>
+  <FooterLayout />
 </template>
 <style>
 .ql-editor {

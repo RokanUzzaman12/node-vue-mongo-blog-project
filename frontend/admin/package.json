@@ -9,11 +9,16 @@
   },
   "dependencies": {
     "@vueup/vue-quill": "^1.0.0-beta.8",
+    "axios": "^0.26.1",
     "core-js": "^3.8.3",
+    "jsonwebtoken": "^8.5.1",
     "vue": "^3.2.13",
+    "vue-axios": "^3.4.1",
     "vue-router": "^4.0.13",
+    "vue-toast-notification": "^3.0.0",
     "vue2-editor": "^2.10.3",
-    "vue3-editor": "^0.1.0-alpha.3"
+    "vue3-editor": "^0.1.0-alpha.3",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
