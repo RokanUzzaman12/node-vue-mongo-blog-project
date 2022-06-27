@@ -17,12 +17,17 @@ const postModule = {
     actions:{
         async createPost({commit},posts){
             console.log(posts);
-            console.log(commit)
+           
             try{
                 let result = await axios.post('http://localhost:3000/api/posts',posts)
                 console.log(result)
+                if(result.data.type == "success"){
+                    commit("setSinglePost",result.data.data)
+                }
+                return result.data
             }catch(err){
                 console.log(err.response);
+                return err.response
             }
         },
 
@@ -44,6 +49,10 @@ const postModule = {
     mutations:{
         setPost:(state,postData)=>{
             state.posts = postData
+        },
+
+        setSinglePost:(state,post)=>{
+            state.posts.unshift(post)
         }
     }
 }

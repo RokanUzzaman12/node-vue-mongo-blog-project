@@ -22,6 +22,7 @@ export default {
 };
 </script>
 <template>
+<div>
   <NavbarLayout />
 
   <SidebarLayout />
@@ -83,19 +84,21 @@ export default {
                         <th>Image</th>
                         <th>Author</th>
                         <th>Title</th>
-                        <th>Action</th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr v-for="(item, index) in getAllPost" :key="item._id">
                         <td>{{ index + 1 }}</td>
                         <td>
+                          
                           <img
                             :src="
                               'http://localhost:3000/images/' + item.postImage
                             "
                             style="width: 50px"
                           />
+
                         </td>
                         <td v-if="item.author">{{ item.author.userName }}</td>
                         <td v-if="item.author == null">N/A</td>
@@ -129,6 +132,7 @@ export default {
     <!-- /.content -->
   </div>
   <FooterLayout />
+  </div>
 </template>
 <style>
 .ql-editor {

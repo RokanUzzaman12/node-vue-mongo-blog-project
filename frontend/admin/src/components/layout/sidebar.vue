@@ -84,10 +84,10 @@ export default {
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <router-link :to="{ name: 'AllPost' }" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>All Post</p>
-                  </a>
+                  </router-link>
                 </li>
                 <li class="nav-item">
                   <router-link :to="{ name: 'createPost' }" class="nav-link">

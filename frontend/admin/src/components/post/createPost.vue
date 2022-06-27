@@ -23,13 +23,32 @@ export default {
   },
   methods: {
     ...mapActions("postModule", ["createPost"]),
+
+    resetInput(){
+      this.post.author = null,
+      this.post.title = null,
+      this.post.content = null,
+      this.post.postImage = null
+    },
     onSubmit() {
       this.post.author = this.$store.state.userInfo._id;
       const formData = new FormData();
       formData.append("postImage", this.post.postImage);
       formData.append("title", this.post.title);
+      formData.append("author", this.post.author);
+      formData.append("content", this.post.content);
       console.log(this.post);
-      this.createPost(formData);
+      this.createPost(formData).then((response)=>{
+        if(response.type == 'success'){
+          this.$toast.open({
+            message:response.msg,
+            type:'success',
+            duration:3000
+          })
+          formData.append("postImage", null);
+          this.resetInput()
+        }
+      })
     },
 
     onFileChange(event) {
@@ -39,6 +58,7 @@ export default {
 };
 </script>
 <template>
+<div>
   <NavbarLayout />
 
   <SidebarLayout />
@@ -48,7 +68,7 @@ export default {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Create Post {{ this.name }}</h1>
+            <h1 class="m-0">Create Post</h1>
           </div>
           <!-- /.col -->
           <div class="col-sm-6">
@@ -117,6 +137,7 @@ export default {
     <!-- /.content -->
   </div>
   <FooterLayout />
+  </div>
 </template>
 <style>
 .ql-editor {

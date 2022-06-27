@@ -12,7 +12,10 @@ app.use(express.json());
 app.use('/api',usersRouter)
 app.use('/api',postRouter)
 app.use('/api',categoryRouter)
-
+app.use('/images',express.static('images'))
+app.get("/",(req,res)=>{
+    res.send("hello")
+})
 
 //default error handler
 const errorHandler = (err,req,res,next)=>{
