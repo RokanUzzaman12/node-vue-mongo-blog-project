@@ -10,8 +10,6 @@ export default {
 
   data() {
     return {
-      userInfo: JSON.parse(localStorage.getItem("userInfo")),
-
       post: {
         author: "",
         title: "",
@@ -26,7 +24,7 @@ export default {
   methods: {
     ...mapActions("postModule", ["createPost"]),
     onSubmit() {
-      this.post.author = this.userInfo._id;
+      this.post.author = this.$store.state.userInfo._id;
       const formData = new FormData();
       formData.append("postImage", this.post.postImage);
       formData.append("title", this.post.title);

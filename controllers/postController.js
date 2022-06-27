@@ -43,7 +43,8 @@ exports.createPost = asyncHandler(async(req,res,next)=>{
 exports.fetchAllPost = asyncHandler(async(req,res,next)=>{
     try{
 
-        const data = await postModel.find({}).sort({created:-1}).populate({path:'author'});
+        const data = await postModel.find({}).sort({created:-1})
+        .populate({path:'author'})
         res.status(200).send({
             type:'success',
             msg:"All posts Fetch Successfully",

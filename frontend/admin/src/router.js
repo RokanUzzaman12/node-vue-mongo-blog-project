@@ -1,6 +1,7 @@
 
 import { createRouter, createWebHistory } from 'vue-router';
 import mainLayout from './components/mainLayout.vue';
+import AllPost from './components/post/allPost';
 import createPost from './components/post/createPost';
 import LoginComponent from './components/user/login';
 import manageUsers from './components/user/manageUsers';
@@ -26,6 +27,14 @@ const routes = [
         name:'createPost',
         path:'/create-post',
         component:createPost,
+        meta:{
+            auth:true
+        }
+    },
+    {
+        name:'AllPost',
+        path:'/all-post',
+        component:AllPost,
         meta:{
             auth:true
         }
